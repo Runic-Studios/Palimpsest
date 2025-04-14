@@ -85,6 +85,7 @@ func gatherAllPaths(overlayDirs []string) (map[string]*ConfigFile, error) {
 				loader, err := merger.ForExtension(ext)
 				if err != nil {
 					log.Printf("ignoring file %s: %v", fullPath, err)
+					delete(pathMap, rel)
 					return nil
 				}
 				configFile.loader = loader
