@@ -44,7 +44,7 @@ pipeline {
                         go mod download
                         go build -buildvcs=false -o palimpsest ./cmd
                         """
-                        orasPush(env.ARTIFACT_NAME, env.GIT_COMMIT.take(7) "palimpsest", env.REGISTRY, env.REGISTRY_PROJECT)
+                        orasPush(env.ARTIFACT_NAME, env.GIT_COMMIT.take(7), "palimpsest", env.REGISTRY, env.REGISTRY_PROJECT)
                     }
                 }
             }
