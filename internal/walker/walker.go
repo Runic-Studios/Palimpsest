@@ -3,7 +3,6 @@ package walker
 import (
 	"fmt"
 	"io/fs"
-	"log"
 	"os"
 	"path/filepath"
 
@@ -84,7 +83,6 @@ func gatherAllPaths(overlayDirs []string) (map[string]*ConfigFile, error) {
 				ext := filepath.Ext(rel)
 				loader, err := merger.ForExtension(ext)
 				if err != nil {
-					log.Printf("ignoring file %s: %v", fullPath, err)
 					delete(pathMap, rel)
 					return nil
 				}
