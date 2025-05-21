@@ -37,15 +37,17 @@ func Walk(overlayDirs []string, outputDir string) error {
 			}
 			config = append(config, overlayData)
 		}
-		data := merger.Merge(config)
+		if len(config) > 1 {
+			data := merger.Merge(config)
 
-		outPath := filepath.Join(outputDir, relPath)
-		if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
-			return err
-		}
+			outPath := filepath.Join(outputDir, relPath)
+			if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
+				return err
+			}
 
-		if err := loader.Write(outPath, data); err != nil {
-			return err
+			if err := loader.Write(outPath, data); err != nil {
+				return err
+			}
 		}
 	}
 
