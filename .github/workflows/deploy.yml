@@ -29,7 +29,7 @@ jobs:
 
       - name: Build Binary
         run: |
-          go build -o palimpsest .
+          go build -o palimpsest ./cmd
 
       - name: Get Short SHA
         id: vars
