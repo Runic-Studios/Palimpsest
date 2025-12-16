@@ -37,7 +37,16 @@ func Walk(overlayDirs []string, outputDir string) error {
 			}
 			config = append(config, overlayData)
 		}
-		if len(config) > 1 {
+		if len(config) > 0 {
+			if len(config) == 1 {
+				idx := indices[0]
+				absOverlay, err1 := filepath.Abs(overlayDirs[idx])
+				absOutput, err2 := filepath.Abs(outputDir)
+				if err1 == nil && err2 == nil && absOverlay == absOutput {
+					continue
+				}
+			}
+
 			data := merger.Merge(config)
 
 			outPath := filepath.Join(outputDir, relPath)
