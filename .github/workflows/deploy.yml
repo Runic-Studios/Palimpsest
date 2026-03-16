@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - dev
+<<<<<<< HEAD
   workflow_dispatch:
     inputs:
       run_main_deploy:
@@ -12,6 +13,8 @@ on:
         required: false
         default: false
         type: boolean
+=======
+>>>>>>> main
 
 env:
   PROJECT_NAME: 'Palimpsest'
