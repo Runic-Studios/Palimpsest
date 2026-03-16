@@ -15,15 +15,19 @@ func Merge(overlays []Config) Config {
 	for _, overlay := range overlays {
 		for k, v := range overlay {
 			if existing, ok := result[k]; ok {
-				// If both existing and new values are Configs, merge them recursively
-				if existingMap, ok := existing.(Config); ok {
-					if vMap, ok := v.(Config); ok {
-						result[k] = Merge([]Config{existingMap, vMap})
+				switch existingTyped := existing.(type) {
+				case Config:
+					if vTyped, ok := v.(Config); ok {
+						result[k] = Merge([]Config{existingTyped, vTyped})
+						continue
+					}
+				case []interface{}:
+					if vList, ok := v.([]interface{}); ok {
+						result[k] = append(existingTyped, vList...)
 						continue
 					}
 				}
 			}
-			// Otherwise, overlay replaces or sets the value
 			result[k] = v
 		}
 	}

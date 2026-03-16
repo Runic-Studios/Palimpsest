@@ -48,3 +48,7 @@ If only `overlay3` contains `foo`, that key will be copied into the output.
 ```bash
 go build -o palimpsest ./cmd
 ```
+
+## Important
+
+- Palimpsest currently does not support multi-document yaml files, and may merge them incorrectly.

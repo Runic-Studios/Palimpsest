@@ -20,8 +20,12 @@ func main() {
 	flag.StringVar(&output, "target", "", "Output directory")
 	flag.StringVar(&output, "t", "", "Alias for --target")
 
+	var verbose bool
+	flag.BoolVar(&verbose, "verbose", false, "Enable verbose logging")
+	flag.BoolVar(&verbose, "v", false, "Alias for --verbose")
+
 	flag.Usage = func() {
-		_ = fmt.Errorf("usage: palimpsest -o overlay1 -o overlay2 -t output_dir\n")
+		_ = fmt.Errorf("usage: palimpsest -o overlay1 -o overlay2 -t output_dir [-v]\n")
 		flag.PrintDefaults()
 	}
 
@@ -33,10 +37,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err := walker.Walk(overlays, output); err != nil {
+	if err := walker.Walk(overlays, output, verbose); err != nil {
 		log.Fatal(err)
 	} else {
-		fmt.Printf("overlays %s applied to %s\n", strings.Join(overlays, ", "), output)
+		if verbose {
+			fmt.Printf("overlays %s applied to %s\n", strings.Join(overlays, ", "), output)
+		}
 	}
 }
 
