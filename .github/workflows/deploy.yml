@@ -3,7 +3,8 @@ name: Build and Push Palimpsest
 on:
   push:
     branches:
-      - '**'
+      - main
+      - dev
 
 env:
   PROJECT_NAME: 'Palimpsest'
